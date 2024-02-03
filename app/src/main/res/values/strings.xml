@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">trace.moe</string>
+
+    <string name="tab.search.title">Search</string>
+    <string name="tab.settings.title">Settings</string>
+    <string name="tab.account.title">Account</string>
+
+    <string name="screen.account.yourId">Your account ID</string>
+    <string name="screen.account.idCopied">ID was copied</string>
+    <string name="screen.account.priority">%s of 6</string>
+    <string name="screen.account.quotaProgressTitle">Your monthly usage of the search quota</string>
+    <string name="screen.account.usedQuota">%s used</string>
+    <string name="screen.account.totalQuota">%s total</string>
+    <string name="screen.account.priorityCaption">Your priority in the search queue</string>
+    <string name="screen.account.concurrencyCaption">Number of parallel search requests you can make</string>
+    <string name="screen.account.tapToPickImage">Tap anywhere to select an image from the gallery</string>
+    <string name="screen.account.or">or</string>
+    <string name="screen.account.searchFieldPlaceholder">Enter image URL</string>
+
+    <string name="screen.result.bestMatch">Best match</string>
+    <string name="screen.result.title">Result</string>
+    <string name="screen.result.caption">Found %s frames</string>
+    <string name="screen.result.similarity">~ %s%% similarity</string>
+    <string name="screen.result.episode">Episode %s</string>
+
+    <string name="screen.settings.githubTitle">Github repo</string>
+    <string name="screen.settings.githubCaption">This repo contains the code of this app</string>
+    <string name="screen.settings.tracemoeTitle">Trace.moe</string>
+    <string name="screen.settings.tracemoeCaption">Website</string>
+</resources>
