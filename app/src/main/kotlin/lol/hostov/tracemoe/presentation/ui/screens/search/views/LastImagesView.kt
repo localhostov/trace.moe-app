@@ -11,7 +11,6 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
-import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -117,7 +116,7 @@ fun LastImagesView(viewModel: SearchViewModel) {
 
     AnimatedVisibility(
         visible = images.isNotEmpty(),
-        enter = scaleIn(initialScale = 0.3f) + fadeIn(),
+        enter = fadeIn(),
         exit = scaleOut()
     ) {
         Box(
