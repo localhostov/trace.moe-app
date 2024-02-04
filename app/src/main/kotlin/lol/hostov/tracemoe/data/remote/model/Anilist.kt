@@ -20,7 +20,7 @@ data class AnilistResponse(
         val duration: Int,
         val endDate: Date,
         val episodes: Int,
-        val externalLinks: List<ExternalLinks>,
+        val externalLinks: List<ExternalLink>,
         val format: String,
         val genres: List<String>,
         val id: Int,
@@ -46,7 +46,7 @@ data class AnilistResponse(
             val day: Int,
         )
 
-        data class ExternalLinks(
+        data class ExternalLink(
             val id: Int,
             val site: String,
             val url: String,

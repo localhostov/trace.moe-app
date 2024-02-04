@@ -46,11 +46,13 @@ fun SearchScreen() {
             }
         }
     )
-    val accountColor = generateColorFromSource(
-        source = "${account?.id}",
-        saturation = 0.75f,
-        lightness = 0.4f
-    )
+    val accountColor = remember(account?.id) {
+        generateColorFromSource(
+            source = "${account?.id}",
+            saturation = 0.75f,
+            lightness = 0.4f
+        )
+    }
 
     Box(
         contentAlignment = Alignment.Center,

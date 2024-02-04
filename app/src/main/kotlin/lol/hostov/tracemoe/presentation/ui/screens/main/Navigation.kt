@@ -73,15 +73,13 @@ fun Navigation() {
                         ),
                         selected = currentTab == tab.route,
                         onClick = {
-                            if (currentTab != tab.route) {
-                                navController.navigate(tab.route) {
-                                    popUpTo(navController.graph.findStartDestination().id) {
-                                        saveState = true
-                                    }
-
-                                    launchSingleTop = true
-                                    restoreState = true
+                            navController.navigate(tab.route) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
                                 }
+
+                                launchSingleTop = true
+                                restoreState = true
                             }
                         },
                         icon = {
