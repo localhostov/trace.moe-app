@@ -103,10 +103,6 @@ fun LastImagesView(viewModel: SearchViewModel) {
     )
 
     LaunchedEffect(Unit) {
-        launch(Dispatchers.IO) {
-            images = getImagesList(context)
-        }
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             permissionLauncher.launch(READ_MEDIA_IMAGES)
         } else {
