@@ -16,7 +16,7 @@ private fun BaseExtension.setupAndroid() {
         vectorDrawables.useSupportLibrary = true
 
         versionCode = (System.currentTimeMillis() / 1000).toInt()
-        versionName = "1.0.0"
+        versionName = "1.0.1"
     }
 }
 
