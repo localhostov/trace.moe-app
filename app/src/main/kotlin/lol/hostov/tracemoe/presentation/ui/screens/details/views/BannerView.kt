@@ -1,17 +1,23 @@
 package lol.hostov.tracemoe.presentation.ui.screens.details.views
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -59,7 +65,7 @@ fun BannerView(item: AnilistResponse.MediaItem) {
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
             ) {
-                Poster(item.coverImage.large)
+                Poster(item.coverImage.large, item.isAdult)
 
                 Title(item.title)
             }
@@ -73,49 +79,78 @@ fun BannerView(item: AnilistResponse.MediaItem) {
 private fun Banner(url: String?) {
     var imageIsLoading by remember { mutableStateOf(true) }
 
-    if (url == null) {
-        Box(modifier = Modifier
+    Box(
+        modifier = Modifier
             .fillMaxWidth()
             .height(BANNER_HEIGHT)
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        Theme.colors.card,
-                        Color.Transparent
+            .shimmer(imageIsLoading)
+    ) {
+        if (url == null) {
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Theme.colors.card,
+                            Color.Transparent
+                        )
                     )
                 )
             )
-        )
-    } else {
-        AsyncImage(
-            model = url,
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(BANNER_HEIGHT)
-                .shimmer(imageIsLoading),
-            onSuccess = { imageIsLoading = false }
-        )
+        } else {
+            AsyncImage(
+                model = url,
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize(),
+                onSuccess = { imageIsLoading = false }
+            )
+
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color.Black.copy(alpha = 0.3f),
+                            Color.Transparent
+                        )
+                    )
+                ))
+        }
     }
 }
 
 @Composable
-private fun Poster(url: String) {
+private fun Poster(url: String, isAdult: Boolean) {
     var imageIsLoading by remember { mutableStateOf(true) }
 
-    AsyncImage(
-        model = url,
-        contentDescription = null,
-        modifier = Modifier
-            .border(4.dp, Theme.colors.background, RoundedCornerShape(14.dp))
-            .clip(RoundedCornerShape(14.dp))
-            .height(POSTER_HEIGHT)
-            .width(120.dp)
-            .shimmer(imageIsLoading),
-        contentScale = ContentScale.Crop,
-        onSuccess = { imageIsLoading = false }
-    )
+    Box(contentAlignment = Alignment.TopEnd) {
+        AsyncImage(
+            model = url,
+            contentDescription = null,
+            modifier = Modifier
+                .border(4.dp, Theme.colors.background, RoundedCornerShape(14.dp))
+                .clip(RoundedCornerShape(14.dp))
+                .height(POSTER_HEIGHT)
+                .width(120.dp)
+                .shimmer(imageIsLoading),
+            contentScale = ContentScale.Crop,
+            onSuccess = { imageIsLoading = false }
+        )
+
+        if (isAdult) {
+            Text(
+                text = "18+",
+                color = Color.White,
+                fontSize = 14.sp,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .clip(RoundedCornerShape(4.dp))
+                    .background(Color.Red)
+                    .padding(horizontal = 4.dp)
+            )
+        }
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -146,6 +181,7 @@ private fun Title(title: AnilistResponse.MediaItem.Title) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun TopControls(id: Int) {
     val navController = LocalNavController.current
@@ -158,11 +194,20 @@ private fun TopControls(id: Int) {
         context.startActivity(intent)
     }
 
+    val copyLink = {
+        val url = "https://myanimelist.net/anime/$id"
+        val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("url", url)
+
+        clipboardManager.setPrimaryClip(clipData)
+        Toast.makeText(context, "Link copied", Toast.LENGTH_SHORT).show()
+    }
+
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .statusBarsPadding()
-            .padding(vertical = 8.dp, horizontal = 16.dp)
+            .padding(vertical = 2.dp, horizontal = 16.dp)
             .fillMaxWidth()
     ) {
         Box(
@@ -173,7 +218,7 @@ private fun TopControls(id: Int) {
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(color = Theme.colors.text),
-                    onClick = { navController.popBackStack() }
+                    onClick = { navController.popBackStack() },
                 ),
             contentAlignment = Alignment.Center
         ) {
@@ -190,10 +235,11 @@ private fun TopControls(id: Int) {
                 .size(40.dp)
                 .clip(CircleShape)
                 .background(Theme.colors.background.copy(alpha = 0.6f))
-                .clickable(
+                .combinedClickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(color = Theme.colors.text),
-                    onClick = { openMAL() }
+                    onClick = { openMAL() },
+                    onLongClick = { copyLink() }
                 ),
             contentAlignment = Alignment.Center
         ) {
