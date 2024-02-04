@@ -22,9 +22,40 @@
     <string name="screen.result.caption">Found %s frames</string>
     <string name="screen.result.similarity">~ %s%% similarity</string>
     <string name="screen.result.episode">Episode %s</string>
+    <string name="screen.result.genres">Genres</string>
+    <string name="screen.result.links">Links</string>
+    <string name="screen.result.studios">Studios</string>
+    <string name="screen.result.unknown">Unknown</string>
+    <string name="screen.result.startDate">Start date</string>
+    <string name="screen.result.endDate">End date</string>
+    <string name="screen.result.season">Season</string>
+    <string name="screen.result.status">Status</string>
+    <string name="screen.result.format">Format</string>
+    <string name="screen.result.duration">Duration</string>
+    <string name="screen.result.source">Source</string>
+    <string name="screen.result.synonyms">Synonyms</string>
+    <string name="screen.result.native">Native</string>
+    <string name="screen.result.romaji">Romaji</string>
+    <string name="screen.result.english">English</string>
+    <string name="screen.result.chinese">Chinese</string>
 
     <string name="screen.settings.githubTitle">Github repo</string>
     <string name="screen.settings.githubCaption">This repo contains the code of this app</string>
     <string name="screen.settings.tracemoeTitle">Trace.moe</string>
     <string name="screen.settings.tracemoeCaption">Website</string>
+
+    <string-array name="months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
 </resources>
