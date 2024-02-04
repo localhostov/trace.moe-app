@@ -3,6 +3,7 @@ package lol.hostov.tracemoe.presentation.theme
 import androidx.compose.ui.graphics.Color
 
 data class ColorScheme(
+    val accent: Color,
     val background: Color,
     val text: Color,
     val textSecondary: Color,
@@ -18,6 +19,7 @@ data class ColorScheme(
 )
 
 val darkColorScheme = ColorScheme(
+    accent = Color(0xFF0E69F0),
     background = Color.Black,
     text = Color.White,
     bottomBarBackground = Color(0xFF131313),
