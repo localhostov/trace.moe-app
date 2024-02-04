@@ -43,8 +43,6 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
     implementation(libs.coil)
-    implementation(libs.media3.exoplayer)
-    implementation(libs.media3.ui)
     implementation(libs.navigation)
 
     ksp(libs.hilt.compiler)
